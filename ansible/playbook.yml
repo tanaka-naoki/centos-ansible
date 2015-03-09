@@ -22,3 +22,12 @@
           - epel.repo
           - rpmforge.repo
           - remi.repo
+       - name: モジュールインストール
+         yum: name={{item}} enablerepo=remi,epel,rpmforge state=latest
+         with_items:
+          - httpd-devel
+          - php-devel
+          - php-pear
+          - mysql-server
+        - name: httpd.confのバックアップ
+          copy: src=/etc/httpd/conf/httpd.conf.org dest=/etc/httpd/conf/httpd.conf backup=yes

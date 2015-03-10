@@ -8,6 +8,12 @@
           dest: /etc/yum.conf
           regexp: ^exclude=
           line: '#exclude=kernel*'
+       - name: 時刻設定
+         command: \cp -f /usr/share/zoneinfo/Japan /etc/localtime
+         lineinfile:
+          dest: /etc/sysconfig/clock
+          regexp: ^ZONE=
+          line: 'ZONE="Asia/Tokyo"'
        - name: yum　update実行
          yum: name=* state=latest
        - name: リポジトリ追加
@@ -25,9 +31,27 @@
        - name: モジュールインストール
          yum: name={{item}} enablerepo=remi,epel,rpmforge state=latest
          with_items:
+          - kernel-devel
+          - kernel-headers
+          - dkms
+          - gcc
+          - gcc-c++
+          - httpd
           - httpd-devel
+          - php
           - php-devel
           - php-pear
+          - php-mbstring
+          - php-mysql
           - mysql-server
-        - name: httpd.confのバックアップ
-          copy: src=/etc/httpd/conf/httpd.conf.org dest=/etc/httpd/conf/httpd.conf backup=yes
+          - mysql-devel
+       - name: vboxリビルド
+         command: /etc/init.d/vboxadd setup
+       - name: httpd.confのバックアップ
+         command: cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org creates=/etc/httpd/conf/httpd.conf.org
+       - name: httpd.confの設置
+         template: src=templates/httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf group=root owner=root mode=0644 backup=yes
+       - name: httpd再起動
+         service: name=httpd enabled=yes state=restarted
+
+        

@@ -10,6 +10,7 @@ Vagrant.configure(2) do |config|
   # hostsの書き換えを行ってくれるplugin
   # vagrant plugin install vagrant-hostsupdater
    config.vm.hostname = "local.info"
+   config.hostsupdater.aliases = ["test.local.info"]
 
   # config.vm.synced_folder "../data", "/vagrant_data"
 
@@ -24,8 +25,8 @@ Vagrant.configure(2) do |config|
   # vagrant plugin install landrush
   #if defined?(Landrush)
   #  config.landrush.enabled = true
-  #  config.vm.hostname = 'local'
-  #  config.landrush.tld = 'local'
+  #  config.vm.hostname = 'local.info'
+  #  config.landrush.tld = 'local.info'
   #  config.landrush.guest_redirect_dns = false
   #end
 

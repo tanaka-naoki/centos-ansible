@@ -9,12 +9,13 @@
           regexp: ^exclude=
           line: '#exclude=kernel*'
        - name: 時刻設定
-         command: \cp -f /usr/share/zoneinfo/Japan /etc/localtime
+         command: '\cp -f /usr/share/zoneinfo/Japan /etc/localtime'
+       - name: 時刻設定ファイル書き換え
          lineinfile:
           dest: /etc/sysconfig/clock
           regexp: ^ZONE=
           line: 'ZONE="Asia/Tokyo"'
-       - name: yum　update実行
+       - name: yum update実行
          yum: name=* state=latest
        - name: リポジトリ追加
          yum: name={{item}}
@@ -51,7 +52,16 @@
          command: cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org creates=/etc/httpd/conf/httpd.conf.org
        - name: httpd.confの設置
          template: src=templates/httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf group=root owner=root mode=0644 backup=yes
+       - name: v_host.confの設置
+         template: src=templates/v_host.conf dest=/etc/httpd/conf.d/v_host.conf group=root owner=root mode=0644
        - name: httpd再起動
          service: name=httpd enabled=yes state=restarted
-
+       - name: mysqlの起動
+         service: name=mysqld state=started enabled=yes
+       - name: MySQLのrootのパスワードの変更
+         mysql_user: name=root host={{item}} password={{root_db_password}}
+         with_items:
+               - 127.0.0.1
+               - localhost
+               - %
         

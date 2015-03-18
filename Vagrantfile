@@ -3,7 +3,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.box = "centos65"
   # config.vm.box_check_update = false
-  
+
   config.vm.network "forwarded_port", guest:80, host:8880, id:"http"
   config.vm.network "private_network", ip: "192.168.33.10"
 
@@ -17,9 +17,12 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
      # Display the VirtualBox GUI when booting the machine
      vb.gui = false
-  
+
      # Customize the amount of memory on the VM:
      vb.memory = "1024"
+
+     vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
    end
 
   # vagrant plugin install landrush
@@ -30,8 +33,11 @@ Vagrant.configure(2) do |config|
   #  config.landrush.guest_redirect_dns = false
   #end
 
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   sudo apt-get update
-  #   sudo apt-get install -y apache2
-  # SHELL
+# ansibleをインストール
+   config.vm.provision "shell", inline: <<-SHELL
+     yum install -y ansible
+     cd /vagrant/ansible
+     ansible-playbook playbook.yml --connection=local
+     SHELL
+
 end

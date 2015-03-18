@@ -1,5 +1,6 @@
 #vagrant lamp環境設定
-  - hosts: vagrant
+  - hosts: localhost
+    connection: local
     sudo: yes
     vars:
       root_db_password : password
@@ -129,3 +130,8 @@
          mysql_db:
            name: test
            state: absent
+       - name: php.ini設定
+           lineinfile:
+             dest: /etc/php.ini
+             regexp: 'date.timezone ='
+             line: 'date.timezone = "Asia/Tokyo"'

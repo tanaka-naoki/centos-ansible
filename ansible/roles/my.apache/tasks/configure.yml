@@ -1,0 +1,16 @@
+- name: httpd.confの設置
+  template:
+    src: httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
+    group: root
+    owner: root
+    mode: 0644
+    backup: yes
+- name: v_host.confの設置
+  template:
+    src: v_host.conf
+    dest: /etc/httpd/conf.d/v_host.conf
+    group: root
+    owner: root
+    mode: 0644
+  notify: httpd再起動

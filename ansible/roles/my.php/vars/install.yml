@@ -1,0 +1,6 @@
+php_items:
+  - php
+  - php-devel
+  - php-pear
+  - php-mbstring
+  - php-mysql

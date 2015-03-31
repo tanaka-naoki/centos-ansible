@@ -1,0 +1,6 @@
+# CentOS6.5用設定ファイル
+- include: configure.yml
+- include: time-zone.yml
+- include: add-repo.yml
+- include: vbox-build.yml
+- include: install.yml

@@ -1,0 +1,11 @@
+- include_vars: repo.yml
+- name: リポジトリ追加
+  yum:
+    name: '{{ item }}'
+  with_items: repo_url_items
+- name: 一旦リポジトリ無効化
+  replace:
+    dest: '/etc/yum.repos.d/{{ item }}'
+    regexp: 'enabled *= *1'
+    replace: 'enabled=0'
+  with_items: repo_items

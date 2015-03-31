@@ -1,0 +1,9 @@
+- name: yumファイルのkarnelをコメントアウト
+  lineinfile:
+    dest: /etc/yum.conf
+    regexp: '^exclude='
+    line: '#exclude=kernel*'
+- name: yum update実行
+  yum:
+    name: '*'
+    state: latest

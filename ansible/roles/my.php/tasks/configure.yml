@@ -1,0 +1,5 @@
+- name: php.ini設定
+  lineinfile:
+    dest: /etc/php.ini
+    regexp: '^date.timezone ='
+    line: 'date.timezone = "Asia/Tokyo"'

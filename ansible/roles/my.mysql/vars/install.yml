@@ -1,0 +1,4 @@
+mysql_items:
+  - mysql-server
+  - mysql-devel
+  - MySQL-python

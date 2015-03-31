@@ -1,0 +1,7 @@
+- name: 時刻設定
+  command: '\cp -f /usr/share/zoneinfo/Japan /etc/localtime'
+- name: 時刻設定ファイル書き換え
+  lineinfile:
+    dest: /etc/sysconfig/clock
+    regexp: '^ZONE='
+    line: 'ZONE="Asia/Tokyo"'

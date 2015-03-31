@@ -39,5 +39,4 @@ Vagrant.configure(2) do |config|
      cd /vagrant/ansible
      ansible-playbook playbook.yml --connection=local
      SHELL
-
 end

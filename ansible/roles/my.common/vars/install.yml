@@ -1,0 +1,6 @@
+common_items:
+  - kernel-devel
+  - kernel-headers
+  - dkms
+  - gcc
+  - gcc-c++

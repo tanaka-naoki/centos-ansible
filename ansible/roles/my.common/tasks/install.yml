@@ -1,0 +1,7 @@
+- include_vars: install.yml
+- name: モジュールインストール
+  yum:
+    name: '{{ item }}'
+    enablerepo: remi,epel,rpmforge
+    state: latest
+  with_items: common_items

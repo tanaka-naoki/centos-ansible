@@ -1,0 +1,5 @@
+- name: httpd再起動
+  service:
+    name: httpd
+    enabled: yes
+    state: restarted

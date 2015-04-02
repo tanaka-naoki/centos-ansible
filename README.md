@@ -2,16 +2,15 @@
 
 ## ansible フォルダ構成
 
-	group_vars/
-	   group1              特定のグループの変数を、ここで代入
-	host_vars/
-	   hostname1           システムに特定の変数が必要な場合は、ここに置く
+	localhost_lamp/
+	  group_vars/
+	    group1              特定のグループの変数を、ここで代入
+	  host_vars/
+	    hostname1           システムに特定の変数が必要な場合は、ここに置く
+	  roles/                localhost_lamp用roles
+	  site.yml              マスターplaybook
 
-	site.yml               マスターplaybook
-	web_servers.yml        webserver層のplaybook
-	db_servers.yml         dbserver層のplaybook
-
-	roles/
+	roles/                   共通のroles
 	  common/                この階層は "role" を表す
 	    tasks/            
 	        main.yml        <-- タスクファイルは正当であればより小さなファイルをインクルードできる
@@ -22,20 +21,12 @@
 	    files/            
 	        bar.txt         <-- copy リソースで使用するファイル
 	        foo.sh          <-- script リソースで使用するスクリプト
-	hotfix                  緊急用playbook置き場
-	library                 anasible自作モジュール
-	
-## ansible サーバ構成
-
-+ 踏み台サーバ  31022
-+ ver. ansible 1.9
-+ デフォルトhostsは、/etc/ansible/hosts
-
+	vars/                   共通変数
 
 ## ansible コマンド
 
 + ローカル実行時  
-ansible-playbook playbook.yml  
+ansible-playbook site.yml --connection=local
 
 
 + 疎通確認など  
@@ -43,12 +34,12 @@ ansible -i hosts web1 -m ping
 
 
 + playbook実行  
-ansible-playbook -i hosts playbook.yml  
+ansible-playbook -i hosts site.yml
 
 
 + playbook文法確認  
-ansible-playbook -i hosts playbook.yml --syntax-check  
+ansible-playbook -i hosts site.yml --syntax-check
 
 
 + playbook ドライラン  
-ansible-playbook -i hosts playbook.yml --check  
+ansible-playbook -i hosts site.yml --check

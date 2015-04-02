@@ -13,6 +13,7 @@ Vagrant.configure(2) do |config|
    config.hostsupdater.aliases = ["test.local.info"]
 
   # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "../../ansible", "/home/ansible"
 
   config.vm.provider "virtualbox" do |vb|
      # Display the VirtualBox GUI when booting the machine
@@ -36,7 +37,7 @@ Vagrant.configure(2) do |config|
 # ansibleをインストール
    config.vm.provision "shell", inline: <<-SHELL
      yum install -y ansible
-     cd /vagrant/ansible
-     ansible-playbook playbook.yml --connection=local
+     cd /home/ansible/localhost_lamp
+     ansible-playbook site.yml --connection=local
      SHELL
 end

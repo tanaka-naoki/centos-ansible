@@ -1,9 +1,0 @@
-#vagrant lamp環境設定
-  - hosts: localhost
-    connection: local
-    sudo: yes
-    roles:
-      - my.common
-      - my.apache
-      - my.mysql
-      - my.php

@@ -1,13 +1,14 @@
 - include_vars: configure.yml
 - name: my.cnfの設置
   template:
-    src: templates/my-small.cnf.j2
+    src: my-small.cnf.j2
     dest: /etc/my.cnf
     group: root
     owner: root
     mode: 0644
     backup: yes
-  notify: mysqlの起動
+  notify:
+    - mysqlの起動
 - name: .my.cnfファイルの確認
   stat: path=/root/.my.cnf
   register: mycnf_file
@@ -20,11 +21,14 @@
     login_password: ''
     check_implicit_admin: yes
     priv: "*.*:ALL,GRANT"
-  with_items: root_user_host
+  with_items:
+    - '127.0.0.1'
+    - '::1'
+    - 'localhost'
   when: mycnf_file.stat.exists == false
 - name: .my.cnfにパスワード登録
   template:
-    src: templates/python-my.cnf.j2
+    src: python-my.cnf.j2
     dest: '/root/.my.cnf'
     owner: root
     group: root

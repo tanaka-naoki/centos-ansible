@@ -13,4 +13,5 @@
     group: root
     owner: root
     mode: 0644
-  notify: httpd再起動
+  notify:
+    - httpd再起動

@@ -1,0 +1,9 @@
+- name: モジュールインストール
+  yum:
+    name: docker-io
+    enablerepo: epel
+    state: latest
+- name: コンテナ確認用jのaliasを作成
+  shell:  echo "alias dl='docker ps -l -q'" >> ~/.bashrc
+  notify:
+    - docker起動

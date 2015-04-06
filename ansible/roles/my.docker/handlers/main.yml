@@ -1,0 +1,5 @@
+- name: docker起動
+  service:
+    name: docker
+    enabled: yes
+    state: started

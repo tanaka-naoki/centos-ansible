@@ -3,7 +3,13 @@
     name: docker-io
     enablerepo: epel
     state: latest
+- name: .bashrc確認
+  shell: less ~/.bashrc | awk '$0 ~ /^alias dl=*/'
+  register: bash_alias
+  changed_when: false
+  always_run: yes
 - name: コンテナ確認用jのaliasを作成
   shell:  echo "alias dl='docker ps -l -q'" >> ~/.bashrc
+  when: bash_alias.stdout == ""
   notify:
     - docker起動

@@ -1,5 +1,10 @@
 # LAMP 環境用 centOS6.5
 
+## vagrant環境
+
++ plugin
+    - vagrant-hostsupdater
+
 ## ansible フォルダ構成
 
 	localhost_lamp/

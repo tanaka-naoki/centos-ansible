@@ -8,7 +8,7 @@
   register: bash_alias
   changed_when: false
   always_run: yes
-- name: コンテナ確認用jのaliasを作成
+- name: コンテナ確認用のaliasを作成
   shell:  echo "alias dl='docker ps -l -q'" >> ~/.bashrc
   when: bash_alias.stdout == ""
   notify:

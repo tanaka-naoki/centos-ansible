@@ -5,3 +5,7 @@
     enablerepo: remi,epel,rpmforge
     state: latest
   with_items: apache_items
+- name: httpd起動
+  service:
+    name: httpd
+    state: started

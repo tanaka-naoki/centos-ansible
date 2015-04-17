@@ -1,5 +1,5 @@
-- name: mysqlの起動
+- name: mysqlの再起動
   service:
     name: mysqld
     enabled: yes
-    state: started
+    state: restarted

@@ -8,7 +8,11 @@
     mode: 0644
     backup: yes
   notify:
-    - mysqlの起動
+    - mysqlの再起動
+- name: mysql起動
+  service:
+      name: mysqld
+      state: started
 - name: .my.cnfファイルの確認
   stat: path=/root/.my.cnf
   register: mycnf_file
